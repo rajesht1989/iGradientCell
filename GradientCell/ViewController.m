@@ -6,7 +6,7 @@
 //
 
 #import "ViewController.h"
-
+#import "TableViewCell.h"
 @interface ViewController ()
 
 @end
@@ -15,6 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,24 +26,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  1;
+    return  3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    UIImageView *imageVw = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Grass"]];
-    [imageVw setFrame:cell.contentView.bounds];
-    [cell.contentView addSubview:imageVw];
-    
-    UIView *gradientv = [[UIView alloc] initWithFrame:cell.contentView.bounds];
-    [cell.contentView addSubview:gradientv];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = gradientv.bounds;
-    [gradient setStartPoint:CGPointMake(0.0, 0.5)];
-    [gradient setEndPoint:CGPointMake(1.0, 0.5)];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
-    [gradientv.layer insertSublayer:gradient atIndex:0];
-    
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    switch (indexPath.row)
+    {
+        case 0:
+            [cell setImage:[UIImage imageNamed:@"Grass"] andColor:[UIColor whiteColor]];
+            break;
+        case 1:
+            [cell setImage:[UIImage imageNamed:@"House"] andColor:[UIColor greenColor]];
+            break;
+        case 2:
+            [cell setImage:[UIImage imageNamed:@"Sky"] andColor:[UIColor redColor]];
+            break;
+            
+        default:
+            break;
+    }
     return cell;
 }
 @end
